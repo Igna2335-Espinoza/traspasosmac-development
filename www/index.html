@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#2196f3">
+    <title>TraspasosMAC</title>
+    <link rel="stylesheet" href="packages/F7/css/framework7.bundle.min.css">
+    <link rel="stylesheet" href="packages/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div id="app">
+        <div class="panel panel-left panel-cover">
+            <div class="card demo-card-header-pic">
+                <img id="logo-empresa" src="img/mac-logo.png" alt="" width="100vw" height="100vh">
+            </div>
+            <div class="list">
+                <ul>
+                    <li class="custom-menu-item" onclick="accionesMenu(1);">
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-inventory"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title">Sync. ubicaciones</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="custom-menu-item" onclick="accionesMenu(2);">
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-barcode-scan"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title">Sync. códigos</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="custom-menu-item" onclick="accionesMenu(3);">
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-wrench"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title">Sync. productos</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="custom-menu-item" onclick="accionesMenu(4);">
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-trash"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title">Eliminar datos</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="custom-menu-item" onclick="exitApp();">
+                        <div class="item-content">
+                            <div class="item-media"><i class="fa fa-power-off"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title">Salir</div>
+                                <div class="item-after"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <p style="color: white; text-align:center;">Version 2.0.1</p>
+            </div>
+        </div>
+        <div class="view view-main view-init">
+            <div class="page">
+                <div class="navbar">
+                    <div class="navbar-bg"></div>
+                    <div class="navbar-inner">
+                        <div class="left navbar-left">
+                            <button class="button panel-open"><i class="fa fa-bars fa-2x"></i></button>
+                        </div>
+                        <div class="title conteo-pendientes">Traspasos MAC</div>
+                        <div class="right navbar-right">
+                            <button class="button" onclick="cleanInputs();" style="margin-right: 5vw;"><i class="fa fa-trash fa-2x"></i></button>
+                            <button class="button" onclick="envioDeAvances();">
+                                <i class="fa fa-paper-plane fa-2x"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <div class="block">
+                        <span id="badge-test" class="badge color-orange" style="font-size: 120%;">Ambiente TEST</span>
+                        <div class="card">
+                            <div id="QR-note" class="card-header">
+                                <p><strong>Nota: </strong> Con el botón de código QR activo, en el escaneo de ubicación origen debe escanear el código de la etiqueta pegada al producto.</p>
+                            </div>
+                            <div class="card-content card-content-padding">
+                                <div class="list no-hairlines-md">
+                                    <ul>
+                                        <li class="item-content item-input item-input-outline">
+                                            <div class="item-media">
+                                                <button id="BtnQR" class="col button" data-sheet=".modal-busqueda">Código QR</button>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title item-floating-label">Ubicación origen</div>
+                                                <div class="item-input-wrap">
+                                                    <input type="text" id="txTicketID" style="display: none;">
+                                                    <input id="txPrimBin" class="el-editable" type="text">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input item-input-outline">
+                                            <div class="item-media">
+                                                <button class="col button button-fill sheet-open" data-sheet=".modal-busqueda" onclick="openModalBusqueda();">Producto</button>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title item-floating-label">Escanee producto</div>
+                                                <div class="item-input-wrap">
+                                                    <input id="txPartNum" class="el-editable" type="text" placeholder="Código de barra o Id Parte">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input item-input-outline">
+                                            <div class="item-inner">
+                                                <div class="item-input-wrap">
+                                                    <textarea id="txPartDesc" class="resizable el-editable" rows="4"></textarea>
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input item-input-outline">
+                                            <div class="item-media">
+                                                <h5>Cantidad </h5><br><strong id="txIUM"></strong>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title item-floating-label">Ingrese cantidad</div>
+                                                <div class="item-input-wrap">
+                                                    <input id="txPartQty" class="el-editable" type="number" placeholder="valor mayor a cero">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input item-input-outline">
+                                            <div class="item-media">
+                                                <h5 id="txUbicPrimaria">Ubicación</h5>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title item-floating-label">Ubicación destino</div>
+                                                <div class="item-input-wrap">
+                                                    <input id="txTransBin" class="el-editable" type="text" placeholder="Ubicación donde dejará el producto">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button id="BtnSaveMovement" class="button button-block button-fill color-red" onclick="guardadAvance();">
+                                    Guardar Movimiento
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sección de ventanas modales -->
+        <div class="sheet-modal modal-usuarios" style="height: 100vh;">
+            <!-- <div class="toolbar">
+                <div class="toolbar-inner">
+                    <div class="left"></div>
+                    <div class="right"><a class="link sheet-close" href="#">Done</a></div>
+                </div>
+            </div> -->
+            <div class="sheet-modal-inner">
+                <!-- <div class="block"> -->
+                    <div class="page page-with-subnavbar">
+                        <div class="navbar">
+                            <div class="navbar-bg"></div>
+                            <div class="navbar-inner">
+                                <div class="left" style="margin-left: 5vw; color: #ffffff;">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <div class="title">Seleccionar usuario</div>
+                                <div class="right" style="margin-left: 5vw; color: #ffffff;">
+                                    <button class="button button-fill color-orange" style="margin-right: 2vw;" onclick="actualizaListaDeUsuarios();"><i class="fa fa-sync"></i></button>
+                                </div>
+                                <div class="subnavbar">
+                                    <!-- Searchbar with auto init -->
+                                    <form class="searchbar">
+                                        <div class="searchbar-inner">
+                                            <div class="searchbar-input-wrap">
+                                                <input type="search" placeholder="Busque su usuario">
+                                                <span class="input-clear-button"></span>
+                                            </div>
+                                            <span class="searchbar-disable-button if-not-aurora">Cancel</span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <!-- search target list -->
+                            <div class="list links-list searchbar-found listado">
+                                <ul class="users-list">
+                                </ul>
+                            </div>
+                            <!-- Nothing found message -->
+                            <div class="block searchbar-not-found">
+                                <div class="block-inner">No hay resultados</div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+
+        <div class="sheet-modal modal-busqueda" style="height: 100vh;">
+            <div class="toolbar toolbar-busqueda">
+                <div class="toolbar-inner">
+                    <div class="left"></div>
+                    <div class="title">Buscar producto</div>
+                    <div class="right">
+                        <button class="button button-fill" style="margin-right: 2vw;" onclick="cierreModalBusqueda();"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="sheet-modal-inner">
+                <div class="list no-hairlines-md">
+                    <ul>
+                        <li class="item-content item-input item-input-outline">
+                            <div class="item-inner">
+                                <div class="item-title item-floating-label">Texto a buscar</div>
+                                <div class="item-input-wrap">
+                                    <input id="textToSearch" type="text" placeholder="Parte, Descripción o código">
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                            <button class="button button-fill color-red btnSearchProduct" style="width: 25vw; margin-right: 3vw;"><i class="fa fa-search"></i></button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="block">
+                    <div class="list media-list" style="height: 100vh; overflow-y: auto; overflow-x: hidden;">
+                        <ul class="lista_encontrados">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- [v2.0.0] Modal de selección de compañía -->
+        <div class="sheet-modal modal-empresas" style="height: 100vh;">
+            <div class="toolbar toolbar-busqueda">
+                <div class="toolbar-inner">
+                    <div class="left"></div>
+                    <div class="title">Elige compañía</div>
+                    <div class="right">
+                    </div>
+                </div>
+            </div>
+            <div class="sheet-modal-inner">
+                <div class="block">
+                    <button id="BtnCompany" class="button button-fill color-orange button-block"><i class="fa fa-check"></i> Confirmar</button>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <label class="item-radio item-radio-icon-start item-content">
+                                    <input type="radio" class="radio-start" value="DLMAC" onchange="radiobuttonActivo(0);"/>
+                                    <i class="icon icon-radio"></i>
+                                    <div class="item-inner">
+                                        <div class="item-title">
+                                            <img src="./img/Companies/DLMAC.png" alt="" width="160" height="160">
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="item-radio item-radio-icon-start item-content">
+                                    <input type="radio" class="radio-start" value="TT" onchange="radiobuttonActivo(1);" />
+                                    <i class="icon icon-radio"></i>
+                                    <div class="item-inner">
+                                        <div class="item-title">
+                                            <img src="./img/Companies/TTK.png" alt="" width="160" height="160">
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" src="packages/jquery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="packages/F7/js/framework7.bundle.min.js"></script>
+    <script type="text/javascript" src="packages/font-awesome/js/all.min.js"></script>
+    <script type="text/javascript" src="js/routes.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/engine/scripts.js"></script>
+    <script src="js/sqlite/localDB.js"></script>
+    <script src="js/mssql/requests.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-plugin-headercolor": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.gicaor.transfermac"
+    }
+  }
+}
