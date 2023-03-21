@@ -138,7 +138,7 @@ async function consultarProducto(ProdCode) {
     return new Promise((resolve, reject) => {
         let data = []
         db.transaction(function(tx) {
-            tx.executeSql(`SELECT PartNum, PartDesc, IUM FROM productos WHERE PartNum = ?`, [numParte], 
+            tx.executeSql(`SELECT PartNum, PartDesc, IUM FROM productos WHERE UPPER(PartNum) = ?`, [numParte], 
             function(tx, res) {
                 if (res.rows.length > 0) {
                     const _partnum = (arrBarCode.length > 0) ? arrBarCode[0].PartNum : ''

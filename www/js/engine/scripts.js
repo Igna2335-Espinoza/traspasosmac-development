@@ -217,7 +217,7 @@ document.querySelector('#textToSearch').addEventListener('keyup', function (ev) 
         const inputText = document.querySelector('#textToSearch')
         if (inputText.value.length > 0) {
             app.preloader.show()
-            searchProduct(inputText.value)
+            searchProduct(company,inputText.value)
             inputText.value = ""
         }
         else {
@@ -230,7 +230,8 @@ document.querySelector('.btnSearchProduct').addEventListener('click', function (
     const inputText = document.querySelector('#textToSearch')
     if (inputText.value.length > 0) {
         app.preloader.show()
-        searchProduct(company, inputText.value)
+        searchProduct(company,inputText.value)
+        inputText.value = ""
     }
     else {
         showToast(`Por favor, ingrese un texto válido`)
